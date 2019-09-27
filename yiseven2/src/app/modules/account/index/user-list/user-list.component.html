@@ -1,0 +1,54 @@
+<nz-tabset>
+  <nz-tab nzTitle="用户列表">
+    <nz-table #table1 nzSize="middle" [nzData]="userList" [nzPageSize]="10">
+      <thead>
+      <tr>
+        <th nzWidth="80px"><span nz-text><strong>昵 称</strong></span></th>
+        <th nzWidth="80px"><span nz-text><strong>电 话</strong></span></th>
+        <th nzWidth="130px"><span nz-text><strong>E-mail</strong></span></th>
+        <th nzWidth="80px"><span nz-text><strong>操 作</strong></span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of table1.data">
+        <td>{{ data.username}}</td>
+        <td>{{ data.phone }}</td>
+        <td>{{ data.email }}</td>
+        <td>
+          <button [disabled]="role!=1 || data.id == id" nz-button nzType="danger" (click)="showDeleteConfirm(data.id)"
+                  nzGhost="true" nzSize="small">移 除
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+
+  <nz-tab nzTitle="未审核列表">
+    <nz-table #table2 nzSize="middle" [nzData]="unPassList" [nzPageSize]="10">
+      <thead>
+      <tr>
+        <th nzWidth="80px"><span nz-text><strong>昵 称</strong></span></th>
+        <th nzWidth="80px"><span nz-text><strong>电 话</strong></span></th>
+        <th nzWidth="130px"><span nz-text><strong>E-mail</strong></span></th>
+        <th nzWidth="80px"><span nz-text><strong>操 作</strong></span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of table2.data">
+        <td>{{ data.username}}</td>
+        <td>{{ data.phone }}</td>
+        <td>
+          {{ data.email }}
+          <nz-divider nzType="vertical"></nz-divider>
+        </td>
+        <td>
+          <button [disabled]="role!=1" nz-button nzType="link" (click)="showPassConfirm(data.id)"
+                  style="padding-left: 0">同 意
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>

@@ -1,0 +1,14 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/yiseven?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: admin
+  redis:
+    host: 127.0.0.1
+    port: 6300
+    timeout: 3000

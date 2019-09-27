@@ -1,0 +1,27 @@
+<nz-card nzTitle="YiSeven工作室">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入您的手机号">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="phone"
+                 placeholder="手机号"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入您的密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item style="margin-bottom: 0">
+      <nz-form-control>
+        <button nz-button class="login-form-button" [nzType]="'primary'">登 录</button>
+        Or
+        <a href="javascript:void(0);" (click)="registry()">马上注册...</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-alert *ngIf="!success" nzType="error" [nzMessage]="errorMessage" nzShowIcon></nz-alert>
+</nz-card>

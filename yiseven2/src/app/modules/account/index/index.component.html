@@ -1,0 +1,43 @@
+<nz-layout class="layout">
+  <nz-sider
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzBreakpoint]="'lg'"
+    [nzCollapsedWidth]="0"
+    [nzZeroTrigger]="zeroTrigger"
+  >
+    <div style="display: flex;align-items: flex-end;margin-top: 18px">
+      <div id="logo"></div>
+      <div style="margin-left: 26px">
+        <span nz-text style="color: azure;font-size: 12px">{{username}}</span>
+      </div>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item (click)="navRecordList()" [nzSelected]="navStatus == 0">
+        <i nz-icon nzType="money-collect"></i>
+        <span>流水账目</span>
+      </li>
+      <li nz-menu-item (click)="navUserList()" [nzSelected]="navStatus == 1">
+        <i nz-icon nzType="user"></i>
+        <span>用户列表</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <!--    <nz-header></nz-header>-->
+    <div style="position: absolute;right: 0;margin-right: 15px;">
+      <i nz-icon nzType="logout" nzTheme="outline"></i>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a style="font-size: 3px" href="javascript:void(0);" (click)="showLogoutConfirm()">退出登录</a>
+    </div>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>YiSeven工作室</nz-footer>
+  </nz-layout>
+</nz-layout>
+<ng-template #zeroTrigger>
+  <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+</ng-template>

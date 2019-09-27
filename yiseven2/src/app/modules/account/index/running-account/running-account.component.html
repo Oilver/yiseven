@@ -1,0 +1,89 @@
+<div class="flex">
+  <h3>
+    <nz-statistic style="margin-left: 8px;" [nzValue]="balance | number: '1.0-2'"
+                  [nzTitle]="'资金池 (CNY)'"
+                  [nzValueStyle]="{'font-size.px':25}"></nz-statistic>
+  </h3>
+  <button nz-button nzSize="small" nzType="link" (click)="showModal()" [disabled]="userRole!=1">
+    <span>添加记录</span>
+  </button>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="添加流水记录"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+  nzOkText="确定"
+  nzCancelText="取消"
+  [nzOkDisabled]="!recordForm.valid"
+  [nzBodyStyle]="{'padding-bottom.px': 0}"
+>
+
+  <form nz-form [formGroup]="recordForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>
+        <span nz-text>标 题</span>
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-select formControlName="title" nzAllowClear nzPlaceHolder="请选择">
+          <nz-option nzValue="雇人刷单" nzLabel="雇人刷单"></nz-option>
+          <nz-option nzValue="拿货开销" nzLabel="拿货开销"></nz-option>
+          <nz-option nzValue="店铺开销" nzLabel="店铺开销"></nz-option>
+          <nz-option nzValue="其他" nzLabel="其他"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired><span nz-text>类 型</span></nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-radio-group formControlName="type">
+          <label nz-radio nzValue="1">支出</label>
+          <label nz-radio nzValue="0">收入</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired><span nz-text>数 额</span></nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="此为必填项">
+        <nz-input-number style="width: 100%" formControlName="value" [nzMin]="0" [nzMax]="10000000"
+                         [nzPrecision]="2"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7"><span nz-text>描 述</span></nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <textarea formControlName="description" nz-input rows="3" placeholder="流水描述（可不写）"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+<div class="custom-table">
+  <nz-table #table nzSize="middle" [nzData]="recordEntityList" [nzPageSize]="10"
+            style="padding-left: 15px;padding-right: 15px;padding-top: 10px">
+    <thead>
+    <tr>
+      <th nzWidth="130px"><span nz-text><strong>标 题</strong></span></th>
+      <th nzWidth="115px"><span nz-text><strong>类 型</strong></span></th>
+      <th nzWidth="115px"><span nz-text><strong>金 额</strong></span></th>
+      <th nzWidth="270px"><span nz-text><strong>描 述</strong></span></th>
+      <th nzWidth="130px"><span nz-text><strong>创建者</strong></span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of table.data">
+      <td>{{ data.title }}</td>
+      <td>{{ data.type | recordType}}</td>
+      <td>¥ {{ data.value }}</td>
+      <td style="max-width: 270px" class="ellipsis">
+        <span nzTitle="{{ data.description }}" nz-tooltip>{{ data.description }}</span></td>
+      <td>{{ data.createBy }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

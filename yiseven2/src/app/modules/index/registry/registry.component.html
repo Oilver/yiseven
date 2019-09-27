@@ -1,0 +1,50 @@
+<nz-card nzTitle="YiSeven工作室">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired><span nz-text>手机号</span></nz-form-label>
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="手机号码必填！"
+      >
+        <input id="'phone'" nz-input maxlength="14" oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired><span nz-text>密 码</span></nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="密码必填！">
+        <input
+          nz-input
+          type="password"
+          id="password"
+          formControlName="password"
+          maxlength="18"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired><span nz-text>昵 称</span></nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="昵称必填！">
+        <input nz-input id="username" formControlName="username" maxlength="16"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"><span nz-text>E-mail</span></nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请填写正确的邮箱！">
+        <input nz-input formControlName="email" id="email" maxlength="30"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row class="register-area" style="margin-bottom: 0">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button class="form-button" nzType="primary">注 册</button>
+        Or
+        <a href="javascript:void(0);" (click)="login()">登录</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-alert *ngIf="!success" nzType="error" [nzMessage]="errorMessage" nzShowIcon></nz-alert>
+</nz-card>

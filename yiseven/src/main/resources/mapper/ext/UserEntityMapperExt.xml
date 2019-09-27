@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiseven.account.mapper.ext.UserEntityMapperExt">
+
+    <select id="queryUser" resultType="com.yiseven.account.entity.UserEntity">
+        select id,username,email,phone,role,status
+        from user where phone = #{phone}
+    </select>
+
+    <select id="queryUserList" resultType="com.yiseven.account.entity.UserEntity">
+        select id,username,email,phone,role,status
+        from user
+        where status = #{status}
+        order by role desc, username asc
+    </select>
+
+    <select id="queryUserByPassword" resultType="java.lang.Integer">
+        select count(1)
+        from user where phone = #{phone} and password = #{password}
+    </select>
+</mapper>

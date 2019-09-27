@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+logging:
+  config: classpath:log4j.xml
+
+mybatis:
+  type-aliases-package: com.yiseven.account.entity
+  mapper-locations: classpath:mapper/*/*.xml
