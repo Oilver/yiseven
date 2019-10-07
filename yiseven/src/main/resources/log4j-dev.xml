@@ -3,7 +3,7 @@
 
     <Properties>
         <!--  输出路径  -->
-        <Property name="logPath">D:logs/yiseven/dev</Property>
+        <Property name="logPath">D:/logs/yiseven/dev</Property>
     </Properties>
 
     <Appenders>
