@@ -21,9 +21,7 @@ public class UserValidInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         HttpSession session = request.getSession();
-        System.out.println(session.getId());
         if (null != request.getHeader(Const.VALID_HEARER)) {
-            System.out.println(request.getHeader(Const.VALID_HEARER) + "");
             if (null != session.getAttribute(request.getHeader(Const.VALID_HEARER) + "")) {
                 return true;
             }

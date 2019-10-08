@@ -21,7 +21,6 @@ public class IndexController {
 
     @PostMapping("login")
     public Response login(HttpServletRequest request, @Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println(request.getSession().getId());
         return indexService.login(loginRequest, request);
     }
 

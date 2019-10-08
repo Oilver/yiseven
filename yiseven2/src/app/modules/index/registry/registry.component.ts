@@ -1,8 +1,9 @@
-import {Component, OnInit, } from '@angular/core';
+import {Component, OnInit,} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IndexService} from '../../../service/index.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import {Md5} from 'ts-md5';
 
 @Component({
   selector: 'app-registry',
@@ -23,7 +24,14 @@ export class RegistryComponent implements OnInit {
     if (this.validateForm.invalid) {
       return;
     }
-    this.indexService.registry(this.validateForm.value).subscribe(result => {
+    let params = {
+      password: Md5.hashStr(this.validateForm.controls['password'].value),
+      email: this.validateForm.controls['email'].value,
+      username: this.validateForm.controls['username'].value,
+      phone: this.validateForm.controls['phone'].value,
+      role: this.validateForm.controls['role'].value,
+    };
+    this.indexService.registry(params).subscribe(result => {
       if (result.status == 100) {
         this.success = true;
         this.nzMessageService.info('注册成功！');

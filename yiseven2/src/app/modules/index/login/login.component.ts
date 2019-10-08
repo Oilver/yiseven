@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {IndexService} from '../../../service/index.service';
 import {environment} from '../../../../environments/environment';
+import {Md5} from 'ts-md5';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,11 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.indexService.login(this.validateForm.value).subscribe(result => {
+    let params = {
+      password: Md5.hashStr(this.validateForm.controls['password'].value),
+      phone: this.validateForm.controls['phone'].value,
+    };
+    this.indexService.login(params).subscribe(result => {
       if (result.status == 100) {
         this.success = true;
         sessionStorage.setItem(environment.current_user, result.data);

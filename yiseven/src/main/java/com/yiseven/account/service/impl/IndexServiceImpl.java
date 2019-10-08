@@ -4,6 +4,7 @@ import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.exception.ExceptionThrow;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
+import com.yiseven.account.common.util.MD5Utils;
 import com.yiseven.account.entity.UserEntity;
 import com.yiseven.account.mapper.ext.UserEntityMapperExt;
 import com.yiseven.account.service.IndexService;
@@ -27,6 +28,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public Response login(LoginRequest loginRequest, HttpServletRequest request) {
+        loginRequest.setPassword(MD5Utils.getMd5Simple(loginRequest.getPassword()));
         UserEntity userEntity = userEntityMapperExt.queryUser(loginRequest.getPhone());
         if (userEntity == null) {
             return Response.createByErrorMessage("账户不存在");

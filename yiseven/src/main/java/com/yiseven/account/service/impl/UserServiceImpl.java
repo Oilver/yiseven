@@ -5,6 +5,7 @@ import com.yiseven.account.common.exception.ExceptionThrow;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
 import com.yiseven.account.common.util.HttpUtils;
+import com.yiseven.account.common.util.MD5Utils;
 import com.yiseven.account.entity.UserEntity;
 import com.yiseven.account.mapper.ext.UserEntityMapperExt;
 import com.yiseven.account.service.UserService;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setStatus(Const.REVIEW_STATUS);
         userEntity.setCreateDate(new Date());
         userEntity.setLastUpdateDate(new Date());
+        userEntity.setPassword(MD5Utils.getMd5Simple(userEntity.getPassword()));
         UserEntity queryResult = userEntityMapperExt.queryUser(userEntity.getPhone());
         if (queryResult != null) {
             return Response.createByErrorMessage("该手机已经被注册");
