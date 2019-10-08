@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IndexService} from '../../../service/index.service';
 import {Router} from '@angular/router';
-import {environment} from '../../../../environments/environment';
 import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
@@ -48,11 +47,11 @@ export class RegistryComponent implements OnInit {
       password: [null, [Validators.required]],
       username: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      role: [1]
+      role: [0]
     });
   }
 
-  login(){
+  login() {
     this.router.navigateByUrl('/index/login');
   }
 }

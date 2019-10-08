@@ -16,14 +16,17 @@ export class IDMInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //保证sessionId一致
+    req = req.clone({
+      withCredentials: true,
+    });
     let phone = sessionStorage.getItem(environment.current_user);
-    if (phone == null && req.url != 'http://localhost:8888//login') {
+    if (phone == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add') {
       this.router.navigate(['index/login']);
       this.nzMessageService.error('请先登录', {nzDuration: 5000});
       return of();
     } else if (phone != null) {
       req = req.clone({
-        withCredentials: true,
         setHeaders: {
           phone: phone
         }

@@ -38,9 +38,7 @@ export class LoginComponent implements OnInit {
       if (result.status == 100) {
         this.success = true;
         sessionStorage.setItem(environment.current_user, result.data);
-        this.router.navigate(['account/index'], {
-          queryParams: {}
-        });
+        this.router.navigateByUrl('account/index');
       } else {
         this.success = false;
         this.errorMessage = result.msg;

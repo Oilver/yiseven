@@ -7,7 +7,9 @@
         [nzXs]="24"
         nzErrorTip="手机号码必填！"
       >
-        <input id="'phone'" nz-input maxlength="14" oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
+        <input id="phone"
+               formControlName="phone"
+               nz-input maxlength="14" oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
       </nz-form-control>
     </nz-form-item>
 

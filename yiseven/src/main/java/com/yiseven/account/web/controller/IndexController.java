@@ -20,7 +20,8 @@ public class IndexController {
     private IndexService indexService;
 
     @PostMapping("login")
-    public Response login(@Valid @RequestBody LoginRequest loginRequest, HttpServletRequest request) {
+    public Response login(HttpServletRequest request, @Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println(request.getSession().getId());
         return indexService.login(loginRequest, request);
     }
 

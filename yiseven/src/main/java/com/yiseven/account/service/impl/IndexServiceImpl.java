@@ -25,9 +25,6 @@ public class IndexServiceImpl implements IndexService {
     @Autowired
     private UserEntityMapperExt userEntityMapperExt;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
     @Override
     public Response login(LoginRequest loginRequest, HttpServletRequest request) {
         UserEntity userEntity = userEntityMapperExt.queryUser(loginRequest.getPhone());
