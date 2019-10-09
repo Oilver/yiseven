@@ -26,10 +26,10 @@
   </delete>
   <insert id="insert" parameterType="com.yiseven.account.entity.RecordEntity" >
     insert into record (id, title, description, 
-      type, value, createBy, 
+      type, value, balance,createBy,
       createDate, lastUpdateDate)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER}, #{value,jdbcType=DOUBLE}, #{createBy,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{value,jdbcType=DOUBLE}, #{balance,jdbcType=DOUBLE}, #{createBy,jdbcType=VARCHAR},
       #{createDate,jdbcType=TIMESTAMP}, #{lastUpdateDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yiseven.account.entity.RecordEntity" >
@@ -49,6 +49,9 @@
       </if>
       <if test="value != null" >
         value,
+      </if>
+      <if test="balance != null" >
+        balance,
       </if>
       <if test="createBy != null" >
         createBy,
@@ -75,6 +78,9 @@
       </if>
       <if test="value != null" >
         #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
       </if>
       <if test="createBy != null" >
         #{createBy,jdbcType=VARCHAR},

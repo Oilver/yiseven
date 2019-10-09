@@ -61,6 +61,7 @@ public class RecordServiceImpl implements RecordService {
         RecordEntity recordEntity = new RecordEntity();
         modelMapper.map(recordRequest, recordEntity);
         recordEntity.setCreateBy(user.getUsername());
+        recordEntity.setBalance(balance);
         int result = recordEntityMapperExt.insertSelective(recordEntity);
         //失败了就抛出异常
         ExceptionThrow.cast(ResponseCode.DATABASE_ERROR, 1 != result);

@@ -31,6 +31,7 @@
           <nz-option nzValue="雇人刷单" nzLabel="雇人刷单"></nz-option>
           <nz-option nzValue="拿货开销" nzLabel="拿货开销"></nz-option>
           <nz-option nzValue="店铺开销" nzLabel="店铺开销"></nz-option>
+          <nz-option nzValue="员工工资" nzLabel="员工工资"></nz-option>
           <nz-option nzValue="其他" nzLabel="其他"></nz-option>
         </nz-select>
       </nz-form-control>
@@ -68,9 +69,10 @@
             style="padding-left: 15px;padding-right: 15px;padding-top: 10px">
     <thead>
     <tr>
-      <th nzWidth="130px"><span nz-text><strong>标 题</strong></span></th>
-      <th nzWidth="115px"><span nz-text><strong>类 型</strong></span></th>
-      <th nzWidth="115px"><span nz-text><strong>金 额</strong></span></th>
+      <th nzWidth="100px"><span nz-text><strong>标 题</strong></span></th>
+      <th nzWidth="100px"><span nz-text><strong>类 型</strong></span></th>
+      <th nzWidth="100px"><span nz-text><strong>流水金额</strong></span></th>
+      <th nzWidth="100px"><span nz-text><strong>流水后余额</strong></span></th>
       <th nzWidth="270px"><span nz-text><strong>描 述</strong></span></th>
       <th nzWidth="130px"><span nz-text><strong>创建者</strong></span></th>
     </tr>
@@ -80,6 +82,7 @@
       <td>{{ data.title }}</td>
       <td>{{ data.type | recordType}}</td>
       <td>¥ {{ data.value }}</td>
+      <td>¥ {{ data.balance }}</td>
       <td style="max-width: 270px" class="ellipsis">
         <span nzTitle="{{ data.description }}" nz-tooltip>{{ data.description }}</span></td>
       <td>{{ data.createBy }}</td>

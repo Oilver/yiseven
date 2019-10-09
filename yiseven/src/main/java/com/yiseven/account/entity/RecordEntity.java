@@ -20,6 +20,8 @@ public class RecordEntity {
     @NotNull
     private Double value;
 
+    private Double balance;
+
     private String createBy;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -27,6 +29,14 @@ public class RecordEntity {
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lastUpdateDate;
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
 
     public Integer getId() {
         return id;

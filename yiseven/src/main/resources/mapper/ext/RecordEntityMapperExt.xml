@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yiseven.account.mapper.ext.RecordEntityMapperExt">
     <select id="queryList" resultType="com.yiseven.account.entity.RecordEntity">
-        select id, title, description, type, value, createBy, createDate, lastUpdateDate
+        select id, title, description, type, value, balance, createBy, createDate, lastUpdateDate
         from record
         order by lastUpdateDate desc
     </select>
