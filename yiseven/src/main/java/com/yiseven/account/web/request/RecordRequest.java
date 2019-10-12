@@ -5,6 +5,7 @@ import com.yiseven.account.common.request.BaseRequest;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author hdeng
@@ -21,4 +22,7 @@ public class RecordRequest extends BaseRequest {
 
     @NotNull
     private Double value;
+
+    @NotNull
+    private Date createDate;
 }

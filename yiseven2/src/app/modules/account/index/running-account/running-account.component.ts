@@ -24,6 +24,7 @@ export class RunningAccountComponent implements OnInit {
       title: [null, [Validators.required]],
       type: ['1', [Validators.required]],
       value: [0, [Validators.required]],
+      createDate: [null, [Validators.required]],
       description: ['']
     });
   }

@@ -41,7 +41,6 @@ public class RecordServiceImpl implements RecordService {
     @Transactional(rollbackFor = Exception.class)
     public Response insert(RecordRequest recordRequest, HttpServletRequest request) {
         UserEntity user = HttpUtils.getUser(request);
-        recordRequest.setCreateDate(new Date());
         recordRequest.setLastUpdateDate(new Date());
 
         //处理余额

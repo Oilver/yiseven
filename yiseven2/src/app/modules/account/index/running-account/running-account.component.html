@@ -26,7 +26,7 @@
       <nz-form-label [nzSpan]="7" nzRequired>
         <span nz-text>标 题</span>
       </nz-form-label>
-      <nz-form-control [nzSpan]="12">
+      <nz-form-control [nzSpan]="12" nzErrorTip="此为必填项">
         <nz-select formControlName="title" nzAllowClear nzPlaceHolder="请选择">
           <nz-option nzValue="雇人刷单" nzLabel="雇人刷单"></nz-option>
           <nz-option nzValue="拿货开销" nzLabel="拿货开销"></nz-option>
@@ -56,6 +56,14 @@
     </nz-form-item>
 
     <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired><span nz-text>时 间</span></nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="此为必填项">
+        <nz-date-picker nzShowTime formControlName="createDate"
+        [nzStyle]="{'width.px': 236}"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
       <nz-form-label [nzSpan]="7"><span nz-text>描 述</span></nz-form-label>
       <nz-form-control [nzSpan]="12">
         <textarea formControlName="description" nz-input rows="3" placeholder="流水描述（可不写）"></textarea>
@@ -70,11 +78,12 @@
     <thead>
     <tr>
       <th nzWidth="100px"><span nz-text><strong>标 题</strong></span></th>
-      <th nzWidth="100px"><span nz-text><strong>类 型</strong></span></th>
+      <th nzWidth="70px"><span nz-text><strong>类 型</strong></span></th>
       <th nzWidth="100px"><span nz-text><strong>流水金额</strong></span></th>
       <th nzWidth="100px"><span nz-text><strong>流水后余额</strong></span></th>
       <th nzWidth="270px"><span nz-text><strong>描 述</strong></span></th>
-      <th nzWidth="130px"><span nz-text><strong>创建者</strong></span></th>
+      <th nzWidth="100px"><span nz-text><strong>创建者</strong></span></th>
+      <th nzWidth="130px"><span nz-text><strong>时 间</strong></span></th>
     </tr>
     </thead>
     <tbody>
@@ -86,6 +95,7 @@
       <td style="max-width: 270px" class="ellipsis">
         <span nzTitle="{{ data.description }}" nz-tooltip>{{ data.description }}</span></td>
       <td>{{ data.createBy }}</td>
+      <td>{{ data.createDate }}</td>
     </tr>
     </tbody>
   </nz-table>

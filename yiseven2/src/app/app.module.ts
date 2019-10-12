@@ -3,15 +3,15 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NgZorroAntdModule, NZ_I18N, en_US} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
-import en from '@angular/common/locales/en';
+import zh from '@angular/common/locales/zh';
 import {IDMInterceptor} from './common/interceptor/IDMInterceptor';
 
-registerLocaleData(en);
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  providers: [{provide: NZ_I18N, useValue: en_US},
+  providers: [{provide: NZ_I18N, useValue: zh_CN},
     {provide: HTTP_INTERCEPTORS, useClass: IDMInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
