@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../../service/user.service';
 import {NzModalService} from 'ng-zorro-antd';
 
@@ -7,15 +7,20 @@ import {NzModalService} from 'ng-zorro-antd';
   templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit {
+  @ViewChild('userListIndex', {static: true}) userListIndex: ElementRef;
+
   userList = [];
   unPassList = [];
   role = 0;
   id = 0;
+  recordNumber = 10;
 
   constructor(private userService: UserService, private modalService: NzModalService) {
   }
 
   ngOnInit() {
+    this.recordNumber = (this.userListIndex.nativeElement.offsetHeight - 70.19 - 10 - 45) / 46 - 1;
+    console.log(this.recordNumber)
     this.userService.queryCurrentUser(null).subscribe(result => {
       this.role = result.data.role;
       this.id = result.data.id;
