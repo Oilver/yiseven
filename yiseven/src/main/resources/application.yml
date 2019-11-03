@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: live
+    active: dev
 
 mybatis:
   type-aliases-package: com.yiseven.account.entity

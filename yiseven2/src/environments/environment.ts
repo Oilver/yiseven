@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   url: 'http://localhost:8888/',
+  domain: 'http://www.xxx.club/',
   current_user: 'current_user'
 };
 

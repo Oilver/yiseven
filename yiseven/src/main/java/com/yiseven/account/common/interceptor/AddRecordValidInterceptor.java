@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
+import com.yiseven.account.common.util.HttpUtils;
 import com.yiseven.account.entity.UserEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,8 +22,7 @@ public class AddRecordValidInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        UserEntity userEntity = (UserEntity) request.getSession().getAttribute(
-                request.getHeader(Const.VALID_HEARER));
+        UserEntity userEntity = HttpUtils.getUser(request);
         if (userEntity.getRole() == Const.ADMIN) {
             return true;
         }
