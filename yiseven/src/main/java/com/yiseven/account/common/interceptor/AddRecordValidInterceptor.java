@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
-import com.yiseven.account.common.util.HttpUtils;
+import com.yiseven.account.common.util.RedisUtil;
 import com.yiseven.account.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -19,10 +20,12 @@ import java.io.IOException;
  */
 @Component
 public class AddRecordValidInterceptor implements HandlerInterceptor {
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        UserEntity userEntity = HttpUtils.getUser(request);
+        UserEntity userEntity = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
         if (userEntity.getRole() == Const.ADMIN) {
             return true;
         }

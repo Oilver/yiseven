@@ -20,17 +20,16 @@ export class IDMInterceptor implements HttpInterceptor {
     req = req.clone({
       withCredentials: true,
     });
-    let phone = sessionStorage.getItem(environment.current_user);
-    debugger
-    if (phone == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add'
+    let token = localStorage.getItem(environment.current_user);
+    if (token == null && req.url != environment.url + '/login' && req.url != environment.url + '/user/add'
       && req.url != environment.domain + '/login' && req.url != environment.domain + '/user/add') {
       this.router.navigate(['index/login']);
       this.nzMessageService.error('请先登录', {nzDuration: 5000});
       return of();
-    } else if (phone != null) {
+    } else if (token != null) {
       req = req.clone({
         setHeaders: {
-          phone: phone
+          token: token
         }
       });
     }

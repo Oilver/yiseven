@@ -4,32 +4,39 @@ import com.alibaba.fastjson.JSON;
 import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
+import com.yiseven.account.common.util.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * @author hdeng
  */
 @Component
+@Slf4j
 public class UserValidInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        HttpSession session = request.getSession();
         if (null != request.getHeader(Const.VALID_HEARER)) {
-            if (null != session.getAttribute(request.getHeader(Const.VALID_HEARER) + "")) {
+            if (null != redisUtil.get(request.getHeader(Const.VALID_HEARER))) {
                 return true;
             }
             //请先登录
+            log.error("未登录");
             needLogin(response);
             return false;
         }
         //缺少header
+        log.error("缺少头部");
         needHeader(response);
         return false;
     }

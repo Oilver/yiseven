@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.indexService.login(params).subscribe(result => {
       if (result.status == 100) {
         this.success = true;
-        sessionStorage.setItem(environment.current_user, result.data);
+        localStorage.setItem(environment.current_user, result.data);
         this.router.navigateByUrl('account/index');
       } else {
         this.success = false;

@@ -23,7 +23,7 @@ public class Const {
     //收入
     public static final int INCOME_MONEY = 0;
 
-    public static final String VALID_HEARER = "phone";
+    public static final String VALID_HEARER = "token";
 
     public static final int ACTIVE_STATUS = 1;
 

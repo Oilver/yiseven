@@ -5,7 +5,7 @@ import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.exception.ExceptionThrow;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
-import com.yiseven.account.common.util.HttpUtils;
+import com.yiseven.account.common.util.RedisUtil;
 import com.yiseven.account.entity.AccountEntity;
 import com.yiseven.account.entity.RecordEntity;
 import com.yiseven.account.entity.UserEntity;
@@ -27,6 +27,8 @@ import java.util.Date;
  */
 @Service
 public class RecordServiceImpl implements RecordService {
+    @Autowired
+    RedisUtil redisUtil;
 
     @Autowired
     RecordEntityMapperExt recordEntityMapperExt;
@@ -40,7 +42,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response insert(RecordRequest recordRequest, HttpServletRequest request) {
-        UserEntity user = HttpUtils.getUser(request);
+        UserEntity user = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
         recordRequest.setLastUpdateDate(new Date());
 
         //处理余额
@@ -79,7 +81,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public Response queryList(HttpServletRequest request) {
-        UserEntity user = (UserEntity) request.getSession().getAttribute(request.getHeader(Const.VALID_HEARER));
+        UserEntity user = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
         if (user == null) {
             return Response.createByErrorCode(ResponseCode.NULL_EXCEPTION);
         }

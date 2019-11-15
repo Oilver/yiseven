@@ -58,7 +58,7 @@ export class IndexComponent implements OnInit {
   logout() {
     this.indexService.logout().subscribe(result => {
       if (result.status == 100) {
-        sessionStorage.removeItem(environment.current_user);
+        localStorage.removeItem(environment.current_user);
         this.router.navigateByUrl('/index');
       }
     });

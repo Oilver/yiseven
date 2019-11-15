@@ -4,8 +4,8 @@ import com.yiseven.account.common.Const.Const;
 import com.yiseven.account.common.exception.ExceptionThrow;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
-import com.yiseven.account.common.util.HttpUtils;
 import com.yiseven.account.common.util.MD5Utils;
+import com.yiseven.account.common.util.RedisUtil;
 import com.yiseven.account.entity.UserEntity;
 import com.yiseven.account.mapper.ext.UserEntityMapperExt;
 import com.yiseven.account.service.UserService;
@@ -26,9 +26,11 @@ import java.util.Date;
 @Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserEntityMapperExt userEntityMapperExt;
+    RedisUtil redisUtil;
     @Autowired
-    private ModelMapper modelMapper;
+    UserEntityMapperExt userEntityMapperExt;
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public Response addUser(UserRequest userRequest) {
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response queryCurrentUser(HttpServletRequest request) {
-        UserEntity userEntity = HttpUtils.getUser(request);
+        UserEntity userEntity = (UserEntity) redisUtil.get(request.getHeader(Const.VALID_HEARER));
         if (userEntity != null) {
             return Response.createBySuccess(userEntity);
         }

@@ -5,16 +5,16 @@ import com.yiseven.account.common.exception.ExceptionThrow;
 import com.yiseven.account.common.response.Response;
 import com.yiseven.account.common.response.ResponseCode;
 import com.yiseven.account.common.util.MD5Utils;
+import com.yiseven.account.common.util.RedisUtil;
 import com.yiseven.account.entity.UserEntity;
 import com.yiseven.account.mapper.ext.UserEntityMapperExt;
 import com.yiseven.account.service.IndexService;
 import com.yiseven.account.web.request.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @author hdeng
@@ -23,11 +23,16 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class IndexServiceImpl implements IndexService {
 
+    private static final long SEVEN_DAY = 60 * 60 * 24 * 7;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Autowired
     private UserEntityMapperExt userEntityMapperExt;
 
     @Override
-    public Response login(LoginRequest loginRequest, HttpServletRequest request) {
+    public Response login(LoginRequest loginRequest) {
         loginRequest.setPassword(MD5Utils.getMd5Simple(loginRequest.getPassword()));
         UserEntity userEntity = userEntityMapperExt.queryUser(loginRequest.getPhone());
         if (userEntity == null) {
@@ -40,9 +45,10 @@ public class IndexServiceImpl implements IndexService {
             if (Const.ACTIVE_STATUS != userEntity.getStatus()) {
                 return Response.createByErrorMessage("该账户还在审核...");
             }
-            request.getSession().setAttribute(loginRequest.getPhone(), userEntity);
-            log.info("用户 {} 登录成功", userEntity.getUsername() + " " + userEntity.getPhone());
-            return Response.createBySuccess("登录成功", userEntity.getPhone());
+            String token = UUID.randomUUID().toString();
+            redisUtil.set(token, userEntity, SEVEN_DAY);
+            log.info("用户 {} 登录成功,token: {}", userEntity.getUsername(), token);
+            return Response.createBySuccess("登录成功", token);
         } else {
             ExceptionThrow.cast(ResponseCode.USER_WRONG, true);
         }

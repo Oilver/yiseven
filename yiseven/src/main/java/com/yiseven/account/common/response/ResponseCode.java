@@ -24,7 +24,8 @@ public enum ResponseCode {
     DATABASE_ERROR(601, "数据库出错"),
     PARAM_WRONG(602, "参数有误"),
     USER_WRONG(603, "账号异常"),
-    NO_POWER(604, "没有权利");
+    NO_POWER(604, "没有权利"),
+    REDIS_WRONG(605, "Redis操作失败");
 
     private final int code;
     private final String desc;
